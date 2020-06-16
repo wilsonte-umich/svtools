@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+our $utilityDescription = 'applications for exploring paired-end sequencing data for structural variants';
+our $utility = 'svtools';
+our $version = '0.0.1';
+our $perlPath = '/usr/bin/perl';
+our $scriptDir = '/garage/wilsonte_lab/bin/wilson-ware/svtools-0.0.1';
+our $libDir = '/garage/wilsonte_lab/bin/wilson-ware/svtools-0.0.1/lib';
+our $slurp = '/garage/wilsonte_lab/bin/wilson-ware/svtools-0.0.1/lib/slurp';
+our $glurp = '/garage/wilsonte_lab/bin/wilson-ware/svtools-0.0.1/lib/glurp';
+$| = 1;
+require "$libDir/main.pl";
+require "$libDir/common.pl";
+main();

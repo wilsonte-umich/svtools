@@ -1,0 +1,41 @@
+
+--------------------------------------------------------------------------------
+ANALYSIS PHASE
+--------------------------------------------------------------------------------
+
+From the directory containing this INSTALL file:
+
+    $ perl configure.pl
+
+    configuring svtools, version 0.0.1
+    checking prerequisites ......
+    generating svtools program target
+    done
+    created svtools program target:
+      /path/to/svtools-0.0.1/svtools
+
+Perform a quick check for appropriate installation by calling svtools with
+no commands or options:
+ 
+    $ ./svtools
+
+    svtools version 0.0.1
+    applications for exploring paired-end sequencing data for structural variants
+    usage:	svtools <command> [options ...]
+    use 'svtools --help' or 'svtools <command> --help' for extended help
+
+In most cases you will want to add ‘/path/to/svtools-<#.#.#>’ to  
+your system PATH variable so that it is available to you from any directory 
+by simply typing svtools.  
+
+Familiarize yourself with svtools as follows:
+
+    $ svtools --help
+    $ cat README
+    
+
+--------------------------------------------------------------------------------
+VISUALIZATION PHASE
+--------------------------------------------------------------------------------
+
+pending...

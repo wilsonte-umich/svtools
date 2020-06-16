@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+# help and version feedback
+if($ARGV[0] and $ARGV[0] eq '--help'){
+    print 
+        "usage:\n",
+        "   glurp [-s bufferSize] <commandString> <file> [...]\n",
+        "action:\n",
+        "   passes file list to command as parallel slurp redirection inputs\n",
+        "options:\n",
+        "   'slurp --help' for explanation of -s option\n", 
+        "arguments:\n",
+        "   commandString   target system command with any options (required)\n",
+        "   file(s)         list of inputs files (required)\n",
+        "example:\n",
+        "   glurp \"sort -m\" *.txt\n",
+        "might execute on the system:\n",
+        "   sort -m <(slurp file1.txt) <(slurp file2.txt) ...\n";
+    exit;
+} elsif($ARGV[0] and $ARGV[0] eq '--version'){
+    print "glurp version 1.0.0\n";
+    exit;
+}
+
+# detect options
+my %validOptions = (s=>1);
+my ($options, $option, %options) = "";
+while ($option = shift @ARGV){
+    ($option and $option =~ m/^\-(.)(.*)/) or last;
+    my $optionType = $1;
+    $validOptions{$optionType} or die "glurp command line error: unrecognized option -$optionType\n";  
+    my $optionValue = $2 ? $2 : shift @ARGV;
+    defined $optionValue or die "glurp command line error: no value found for option -$optionType\n";
+    $options .= "-$optionType $optionValue ";
+}
+
+# concatenate and execute command
+my ($commandString, @files) = ($option, @ARGV);
+$commandString or die "glurp error: no command string recovered from command line\n";
+@files or die "glurp error: no input files recovered from command line\n";
+my @slurps;
+foreach my $file(@files){ push @slurps, "<(slurp $options$file)" }
+my $command = join(" ", $commandString, @slurps);
+system("bash", "-c", $command);
+
+
